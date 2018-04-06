@@ -41,3 +41,14 @@
 </code>
 
 - 보통 위와 같은 방식으로 처리한다.
+
+## 윈도우 기반 입출력 함수
+
+<code>
+
+    int send(SOCKET s , const char * buf,int len, int flags);
+    // 성공시 전송된 바이트 수 , 실패시 SOCKET_ERR
+
+    int recv(SOCKET s , const char * buf,int len, int flags);
+    // 성공시 수신된 바이트 수(EOF = 0) , 실패시 SOCKET_ERR
+</code>

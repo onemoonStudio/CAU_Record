@@ -40,3 +40,34 @@
     int accept(int sock, struct sockaddr * addr,socklen_t * addrlen);
     // 성공 시 생성된 소켓의 파일 디스크립터 , 실패 시 -1 반환
 </code>
+
+- int sock 
+    - 서버 소켓의 파일 디스크립터 전달
+- struct sockaddr * addr
+    - 연결요청 한 클라이언트의 주소정보를 담을 변수의 주소 값 전달, 클라이언트의 주소 정보가 채워진다.
+- socklen_t * addrlen
+    - 두번째 매개변수로 전달된 주소의 변수크기를 바이트 단위로 전달, 단 크기정보를 변수에 저장한 다음에 변수의 주소 값을 전달한다.
+
+- accept 함수는 '연결요청 대기 큐'에서 대기중인 클라이언트의 연결요청을 수락하는 기능의 함수이다.
+- 호출성공 시 내부적으로 데이터 입출력에 사용할 소켓을 생성하고, 그 소켓의 파일디스크립터를 반환한다.
+
+### TCP 기반 클라이언트
+
+- 클라이언트의 구현과정은 소켓의 생성과 연결의 요청이 전부이다.
+- 서버에서 listen 함수를 호출하고 연결요청 대기 큐를 만들어 놓으면 그때부터 클라이언트에서 연결 요청을 할 수가 있다. connect 함수를 이용한다.
+
+<code>
+
+    int connect (int sock , const struct sockaddr * servaddr , socklen_t addrlen);
+    // 성공시 생성된 소켓의 파일 디스크립터 , 실패시 -1 반환
+</code>
+
+- int sock 
+    - 클라이언트의 소켓의 파일 디스크립터 전달
+- const struct sockaddr * servaddr 
+    - 연결요청 할 서버의 주소정보를 담은 변수의 주소 값을 전달
+- socklen_t addrlen
+    - 두 번째 매개변수 servaddr에 전달된 주소의 변수 크기를 바이트 단위로 전달
+
+- connect 함수가 제대로 반환이 되었지만 당장의 서비스가 이루어진다는 보장은 없다.
+    - accept가 아닌 연결요청 대기 큐 에 들어가면 반환되기 때문이다.
