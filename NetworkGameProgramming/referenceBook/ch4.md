@@ -10,6 +10,9 @@
     3. listen()     // 연결요청 대기상태
     4. accept()     // 연결 허용
     5. read() / write()     // 데이터 송수신
+    5. recv() / send()      // window
+        - send시 sizeof(sendBuffer)+1을 보내자
+        - null 도 포함시켜야 하기 때문에 
     6. close()      // 연결종료
 
 #### 연결요청 대기상태로의 진입
