@@ -1,0 +1,21 @@
+package lecture.date_0316;
+// page 24
+import java.util.Scanner;
+
+public class DisplayTime {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter an integer for seconds: ");
+	    int seconds = sc.nextInt();
+	 
+	    int minutes = seconds / 60; // Find minutes in seconds
+	    int remainingSeconds = seconds % 60; // Seconds remaining
+	    System.out.println(seconds + " seconds is " + minutes + 
+	      " minutes and " + remainingSeconds + " seconds");  
+	    
+	}
+	
+	
+
+}
