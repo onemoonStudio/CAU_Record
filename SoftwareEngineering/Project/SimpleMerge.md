@@ -2,7 +2,7 @@
 
 ### Hint
 - Wikipidia 에서 LCS 알고리즘 과 diff 알고리즘을 읽는 것이 좋다.
-- [LCS Algorithm]([http://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
+- [LCS Algorithm](http://en.wikipedia.org/wiki/Longest_common_subsequence_problem)
 - [Diff Utility](http://en.wikipedia.org/wiki/Diff)
 
 ## Goal of Project
