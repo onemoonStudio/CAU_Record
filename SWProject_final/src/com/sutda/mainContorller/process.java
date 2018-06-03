@@ -16,8 +16,10 @@ public class process {
         boolean endgame = false;
 
         User users[];
+        User aliveUser[];
+
         Start st = new Start();
-        User te = new User();
+
         Thread.sleep(1000);
         users = st.initUser();
 
@@ -28,6 +30,8 @@ public class process {
 //        }
         System.out.println(" 패를 분배합니다. \n");
 
+
+        // 패 분배
         for(int i=0;i<users.length;i++){
             System.out.println(i+1 +"번째 플레이어가 패를 가져옵니다.");
             users[i].getCard(deck.draw());
@@ -41,5 +45,21 @@ public class process {
 
 
 
+    }
+
+    public static User[] checkAliveUser(User[] users){
+
+        int userNum = 0;
+
+        for(int i=0;i<users.length;i++)
+            if(users[i].alive) userNum++;
+
+        User[] alive = new User[userNum];
+
+        userNum =0;
+        for(int i=0;i<users.length;i++)
+            if(users[i].alive) alive[userNum++] = users[i];
+
+        return alive;
     }
 }
