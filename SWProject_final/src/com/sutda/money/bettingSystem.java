@@ -4,14 +4,15 @@ import com.sutda.user.User;
 
 import java.util.Scanner;
 
-public class bettingSystem {
+public class BettingSystem {
     private int moneyInThisSet;
     private int moneyPerPerson;
-    private int[] bettingInThisSet;
+    public static int[] bettingInThisSet;
     private int baseMoney;
     private int maxBettingMoney;
+    public static boolean allinFlag;
 
-    public bettingSystem( int baseMoney) {
+    public BettingSystem(int baseMoney) {
         this.baseMoney = baseMoney;
         this.setBaseMoney(this.baseMoney);
     }
@@ -37,99 +38,83 @@ public class bettingSystem {
 
     }
 
-    public void bettingOption(User user){
-        Scanner sc = new Scanner(System.in);
-
+    public void bettingGuide(User user,int userNumber){
+        System.out.println("*********************************");
+        System.out.println("현재 판돈 "+this.moneyInThisSet+" 각자 "+this.moneyPerPerson+ " 만원을 내야 합니다.");
+        System.out.println(user.getName()+"님은 "+bettingInThisSet[userNumber]+"만원 을 배팅하셨습니다.");
         System.out.println("어떤 방식으로 배팅을 하시겠습니까?");
-        System.out.println("1. 만원단위 입력");
-        System.out.println("2. 올인 (최대 "+user.getMoney()+"만원)");
-        System.out.println("3. 다이 ");
-        System.out.println("숫자로 방식을 입력해주세요");
-        int opt = Integer.parseInt(sc.nextLine());
-
-        switch (opt){
-            case 1:
-
-                break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
-            default:
-                break;
+        System.out.println("1. 배팅 (만원단위 입력) ");
+        System.out.println("2. 콜 (단위 맞추기) ");
+        System.out.println("3. 올인 (최대 "+this.maxBettingMoney+"만원)");
+        System.out.println("4. 다이 ");
+        System.out.println("5. 나의 패 확인하기 ");
+    }
+    public void bettingOption(User user,int userNumber , int opt){
+        Scanner sc = new Scanner(System.in);
+        bettingGuide(user,userNumber);
+        if(opt == 0){
+            System.out.println("숫자로 배팅방식을 입력해주세요 ");
+            opt = Integer.parseInt(sc.nextLine());
         }
 
+        switch (opt){
+            case 1: // 배팅
+                System.out.println("원하는 추가 배팅 금액을 입력해주세요");
+                System.out.println("현재 "+user.getMoney()+"만원을 가지고 있습니다.");
+
+                int userInput = Integer.parseInt(sc.nextLine());
+
+                if(userInput > user.getMoney()){
+                    System.out.println("가지고 있는 돈이 적습니다. 다시 입력해주세요");
+                    this.bettingOption(user,userNumber,1);
+                    return;
+                }else if(userInput < this.moneyPerPerson){
+                    System.out.println("배팅금액이 내야 할 금액보다 작습니다. 다시 입력해주세요");
+                    this.bettingOption(user,userNumber,1);
+                    return;
+                }else{
+                    user.betMoney(userInput);
+                    bettingInThisSet[userNumber] += userInput;
+                    this.moneyPerPerson = bettingInThisSet[userNumber];
+                    System.out.println(bettingInThisSet[userNumber]+"만원 만큼 배팅하셨습니다.");
+                }
+                break;
+            case 2: // 콜
+                if(bettingInThisSet[userNumber] < this.moneyPerPerson){
+                    user.betMoney(this.moneyPerPerson - bettingInThisSet[userNumber]);
+                    bettingInThisSet[userNumber] += this.moneyPerPerson - bettingInThisSet[userNumber];
+                    System.out.println(bettingInThisSet[userNumber]+"만원 만큼 배팅하셨습니다.");
+                }
+                break;
+            case 3: // 올인
+                System.out.println("올인을 선택하셨습니다. 모든 사람이 최대로 배팅합니다.");
+                user.betMoney(this.maxBettingMoney - bettingInThisSet[userNumber]);
+                this.moneyPerPerson = this.maxBettingMoney;
+                allinFlag = true;
+                break;
+            case 4: // 다이
+                System.out.println("다이를 선택하셨습니다. 현재까지 배팅한 금액은 돌려받지 못합니다.");
+                bettingInThisSet[userNumber] = -1;
+                break;
+            case 5: // 나의 패 확인하기
+                user.rank.checkPare();
+                bettingOption(user,userNumber,0);
+                break;
+            default:
+                System.out.println("잘못 입력하셨습니다. 다시 입력해주세요");
+                bettingOption(user,userNumber,0);
+                break;
+        }
+        System.out.println("다른 사람의 턴으로 넘어갑니다.");
 
     }
 
-    public void bettingLoop(){
-
+    public void allinGame(){
+        // allin 이 선택된 경우
+        if(allinFlag){
+            // . . .
+        }
     }
-
-
-    public int getMoneyInThisSet() {
-        return moneyInThisSet;
-    }
-
-    public void setMoneyInThisSet(int moneyInThisSet) {
-        this.moneyInThisSet = moneyInThisSet;
-    }
-
-    public int getMoneyPerPerson() {
-        return moneyPerPerson;
-    }
-
-    public void setMoneyPerPerson(int moneyPerPerson) {
-        this.moneyPerPerson = moneyPerPerson;
-
-
-//        public void startgame () {
-//            // 이 부분을 프로세스로 빼고 , betting base 쪽을 만든다.
-//
-//            for (int i = 0; i < users.length; i++)
-//                if (users[i].alive && users[i].getMoney() < baseMoney) {
-//                    System.out.println(users[i].getName() + "의 돈이 부족합니다. 배팅금액을 낮춰주세요");
-//                    System.out.println("현재 배팅액 : " + this.baseMoney + " "
-//                            + users[i].getName() + "의 남은 돈 :" + users[i].getMoney());
-//                    System.out.print("배팅 금액 설정 : ");
-//                    Scanner sc = new Scanner(System.in);
-//                    setBaseMoney(sc.nextInt());
-//                    System.out.println("게임을 다시 시작합니다.");
-//                    startgame();
-//                }
-//            // 최소 금액보다 배팅액이 더 큰 경우
-//
-//            System.out.println("게임이 시작 되었습니다.");
-//            // 살아있는 사람들 확인
-////        aliveUsers = this.checkAliveUser();
-////        for(int k=0;k<aliveUsers.length;k++)
-////            System.out.print(aliveUsers[k].getName() +" ");
-////        System.out.println(" 님이 참여합니다. \n");
-//
-//            // 판돈 배팅
-////        for(int k=0;k<aliveUsers.length;k++)
-////            aliveUsers[k].betMoney(this.baseMoney);
-////        System.out.println(this.baseMoney+" 만원 만큼 배팅했습니다.");
-////
-////        setMoneyPerPerson(this.baseMoney);
-////        setMoneyInThisSet(this.moneyPerPerson*aliveUsers.length);
-////
-////        this.userBetting();
-//
-//
-//        }
-//
-//        public boolean userBettingLoop (User[]aliveUsers){
-//
-//            return false;
-//        }
-
-
-    }
-
-
 
 }
 

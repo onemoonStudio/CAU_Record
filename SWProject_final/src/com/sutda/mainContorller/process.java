@@ -19,7 +19,6 @@ public class process {
         User aliveUser[];
 
         Start st = new Start();
-
         Thread.sleep(1000);
         users = st.initUser();
 
@@ -30,13 +29,15 @@ public class process {
 //        }
         System.out.println(" 패를 분배합니다. \n");
 
+        aliveUser = checkAliveUser(users);
 
         // 패 분배
-        for(int i=0;i<users.length;i++){
-            System.out.println(i+1 +"번째 플레이어가 패를 가져옵니다.");
+        for(int i=0;i<aliveUser.length;i++){
+            System.out.println(aliveUser[i].getName() +"님이 패를 가져옵니다.");
             users[i].getCard(deck.draw());
             users[i].getCard(deck.draw());
             System.out.println();
+            Thread.sleep(500);
         }
 
 

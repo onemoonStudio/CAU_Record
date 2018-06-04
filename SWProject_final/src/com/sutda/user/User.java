@@ -1,6 +1,7 @@
 package com.sutda.user;
 
 import com.sutda.card.Card;
+import com.sutda.card.Rank;
 
 public class User {
     public Card cardOne;
@@ -9,6 +10,8 @@ public class User {
     public int money;
     public String name;
     public boolean alive;
+
+    public Rank rank;
 
     public String getName() {
         return name;
@@ -55,11 +58,14 @@ public class User {
         }
         else if(howmanyCard == 1) {
             this.setCardTwo(thisCard);
-            System.out.println(" 현재 수중에 패가 두장 있습니다. 조합을 확인하세요 ");
+            System.out.println(" 현재 수중에 패가 두장 있습니다. ");
+            this.rank = new Rank(cardOne,cardTwo);
         }
         else
             System.out.println("더 이상 카드를 넣을 수 없습니다.");
     }
+
+
 
     public boolean betMoney(int betting){
         if(this.money < betting){
