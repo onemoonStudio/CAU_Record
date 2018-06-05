@@ -51,8 +51,8 @@ public class BettingSystem {
     }
     public void bettingOption(User user,int userNumber , int opt){
         Scanner sc = new Scanner(System.in);
-        bettingGuide(user,userNumber);
         if(opt == 0){
+            bettingGuide(user,userNumber);
             System.out.println("숫자로 배팅방식을 입력해주세요 ");
             opt = Integer.parseInt(sc.nextLine());
         }
@@ -109,11 +109,37 @@ public class BettingSystem {
 
     }
 
-    public void allinGame(){
-        // allin 이 선택된 경우
-        if(allinFlag){
-            // . . .
+    public void allinGame(User[] aliveUsers){
+        // allin 이 선택된 경우 -> allinflag == true
+        Scanner sc = new Scanner(System.in);
+        for(int i=0;i<aliveUsers.length;i++){
+            if(bettingInThisSet[i] == -1 || bettingInThisSet[i] == this.maxBettingMoney) {
+                System.out.println("다른 사람의 턴으로 넘어갑니다.");
+            }else{
+                System.out.println("올인 게임입니다. 총 "+this.maxBettingMoney+"만큼 내야 합니다.");
+                System.out.println("현재 "+bettingInThisSet[i]+"만큼 배팅했습니다.");
+                System.out.println("1. 추가 배팅후 올인게임 참가");
+                System.out.println("2. 다이");
+                int input = Integer.parseInt(sc.nextLine());
+                if(input == 1)
+                    bettingOption(aliveUsers[i],i,3);
+                else
+                    bettingOption(aliveUsers[i],i,4);
+            }
         }
+
+    }
+
+    public boolean bettineEnd(User[] aliveUsers){
+        boolean result = false;
+        for(int el : bettingInThisSet){
+            if(el == -1 || el == this.moneyPerPerson){result = true;}
+            else {
+                result = false;
+                break;
+            }
+        }
+        return result;
     }
 
 }
