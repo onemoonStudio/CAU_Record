@@ -14,7 +14,7 @@ public class Start {
         for (int i=0;i<25;i++)
             System.out.print("#");
         System.out.print("\n Welcome to Sutda \n");
-        System.out.print("don\'t loose your money \n");
+        System.out.print("혼자가 될 때까지 살아남으세요 \n");
         for (int i=0;i<25;i++)
             System.out.print("#");
         System.out.print("\n");
@@ -35,33 +35,35 @@ public class Start {
                 started = true;
                 this.guide();
             }else{
-                System.out.println(" if you ready ");
-                System.out.println(" input y or yes and press enter to play the game ");
+                System.out.println(" 준비가되면 ");
+                System.out.println(" y 나 yes 를 입력한 후 엔터를 누르면 게임이 시작됩니다.");
             }
         }
     }
 
     public void guide(){
-        System.out.print("\n start like this\n");
-        System.out.print(" 1. set how many people to participate in this game \n");
-        System.out.print(" 2. choose number for job (random) \n");
-        System.out.print(" 3. check your money and start betting \n");
-        System.out.print(" 4. rob people money! until only one person has money! \n");
+        System.out.print("\n 이렇게 게임이 진행됩니다. \n");
+        System.out.print(" 1. 게임에 참여할 인원의 수를 정해주세요 \n");
+        System.out.print(" 2. 각자의 이름을 적어주세요 \n");
+        System.out.print(" 3. 한명이 살아남을 때 까지 게임을 진행하세요 \n");
         System.out.println();
+        System.out.println("행운을 빕니다!");
 
     }
 
     public User[] initUser(){
         Scanner sc = new Scanner(System.in);
-        System.out.println("how Many Player ?");
-        int howMany = Integer.parseInt(sc.nextLine());
+        System.out.println("몇명이나 참여하나요 ?");
+        System.out.print(">");
+        int howMany = Integer.parseInt(sc.nextLine().trim());
 
         User[] users = new User[howMany];
 
         for(int i=0;i<howMany;i++){
-            System.out.println("input Player "+(i+1)+"\'s name");
+            System.out.println((i+1)+"번째 참여자의 이름을 적어주세요");
+            System.out.print(">");
             User tempUser = new User();
-            tempUser.setName(sc.nextLine());
+            tempUser.setName(sc.nextLine().trim());
             users[i] = tempUser;
         }
 
@@ -69,7 +71,7 @@ public class Start {
         for(User user : users){
             System.out.print(user.getName()+" ");
         }
-        System.out.print(" are ready \n");
+        System.out.print(" 준비되었습니다. \n");
 
         return users;
     }

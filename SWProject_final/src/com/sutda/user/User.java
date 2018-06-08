@@ -11,7 +11,12 @@ public class User {
     public String name;
     public boolean alive;
 
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
     public Rank rank;
+
 
     public String getName() {
         return name;
@@ -21,8 +26,13 @@ public class User {
         this.name = name;
     }
 
+    public void setHowmanyCard(int howmanyCard) {
+        this.howmanyCard = howmanyCard;
+    }
+
     public User() {
         this.howmanyCard = 0;
+        this.setMoney(100);
         this.alive = true;
     }
 
