@@ -53,7 +53,7 @@ public class BettingSystem {
         System.out.println("2. 콜 (단위 맞추기) ");
         System.out.println("3. 올인 (최대 "+this.maxBettingMoney+"만원)");
         System.out.println("4. 다이 ");
-        System.out.println("5. 나의 상태 확인하기 ");
+        System.out.println("5. 나의 상태 및 패 확인하기 ");
         System.out.println("*********************************");
 
     }
@@ -107,12 +107,16 @@ public class BettingSystem {
                 System.out.println("다이를 선택하셨습니다. 현재까지 배팅한 금액은 돌려받지 못합니다.");
                 bettingInThisSet[userNumber] = -1;
                 break;
-            case 5: // 나의 패 확인하기
-                System.out.println("이번 게임에서 "+user.getName()+"님은 "+bettingInThisSet[userNumber]+"만큼 배팅하셨으며,");
-                System.out.println("현재 "+user.getMoney()+"만큼 돈을 가지고 있습니다.");
-                System.out.print(user.getName()+"님의 패는 <");
-                System.out.print(user.rank.checkPare());;
-                System.out.print("> 입니다.\n");
+            case 5: // 나의 상태 확인하기
+                System.out.print("이번 게임에서 "+user.getName()+"님은 "+bettingInThisSet[userNumber]+"만큼 배팅하셨으며,");
+                System.out.println(" 현재 "+user.getMoney()+"만큼 돈을 가지고 있습니다.");
+                System.out.println(user.getName()+"님의 패는 아래와 같습니다.\n");
+                user.cardOne.printCard();
+                user.cardTwo.printCard();
+                System.out.println("\n조합은 게임이 끝나면 알 수 있습니다.\n");
+//                System.out.print(user.getName()+"님의 패는 <");
+//                System.out.print(user.rank.checkPare());;
+//                System.out.print("> 입니다.\n");
 
                 bettingOption(user,userNumber,0);
                 return;

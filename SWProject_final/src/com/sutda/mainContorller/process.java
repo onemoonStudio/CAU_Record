@@ -43,12 +43,15 @@ public class process {
                 users[i].getCard(deck.draw());
                 Thread.sleep(1000);
 
-                System.out.println("5초 뒤에 패를 확인하겠습니다. 다른 사람은 확인할 수 없도록 해주세요");
-                Thread.sleep(5000);
-
-                System.out.println(aliveUser[i].getName()+"님의 패는 <"+aliveUser[i].rank.checkPare()+"> 입니다.");
-                System.out.println("3초 뒤에 화면이 내려갑니다.");
+                System.out.println("3초 뒤에 패를 확인하겠습니다. 다른 사람은 확인할 수 없도록 해주세요");
                 Thread.sleep(3000);
+
+                //System.out.println(aliveUser[i].getName()+"님의 패는 <"+aliveUser[i].rank.checkPare()+"> 입니다.");
+                System.out.println(aliveUser[i].getName()+"님의 패는 아래와 같습니다.");
+                aliveUser[i].cardOne.printCard();
+                aliveUser[i].cardTwo.printCard();
+                System.out.println("5초 뒤에 화면이 내려갑니다.");
+                Thread.sleep(5000);
                 System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
             }
