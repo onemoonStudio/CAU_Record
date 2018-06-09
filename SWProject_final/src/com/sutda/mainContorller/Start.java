@@ -1,3 +1,10 @@
+/*
+게임을 시작하면서 필요한 기본 설정들을 입력 받습니다.
+특히 유저 부분을 집중적으로 받으면서 기본적인 설정을 채워갑니다.
+또한 가이드를 제시해 줌으로서 게임의 진행 방법을 알려줍니다.
+
+ */
+
 package com.sutda.mainContorller;
 
 import com.sutda.user.User;

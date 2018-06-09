@@ -1,3 +1,14 @@
+/*
+베팅 시스템 클래스 입니다. 개인이 선택할 수 있는 선택지에 대해서 나타냈습니다.
+
+moneyInThisSet : 현재 게임에 놓여있는 판돈을 나타냅니다.
+moneyPerPerson : 각자 내야하는 돈을 나타냅니다. 이 금액을 모두 내야 서로 패를 확인하고 우승자를 가립니다.
+bettingInThisSet : 유저들이 이번 게임에서 얼마를 냈는지 확인합니다.
+baseMoney : 판돈을 설정합니다.
+maxBettingMoney : 유저들의 현재 돈을 보고 올인게임으로 들어가면 얼마를 배팅할 것인지 미리 정해놓습니다.
+allinFlag : 한명이 올인을 선택하게 된다면 해당 게임을 올인 게임이 됩니다. 이를 체크하기 위해서 boolean을 만들었습니다.
+ */
+
 package com.sutda.money;
 
 import com.sutda.user.User;
@@ -29,10 +40,10 @@ public class BettingSystem {
         // basemoney 배팅하면서 게임에 대한 조건을 찾는다.
 
         this.bettingInThisSet = new int[aliveUsers.length];
-        this.maxBettingMoney = this.baseMoney;
+        this.maxBettingMoney = aliveUsers[0].getMoney();
 
         for(int i=0;i<aliveUsers.length;i++){
-            if(maxBettingMoney < aliveUsers[i].getMoney())
+            if(maxBettingMoney > aliveUsers[i].getMoney())
                 this.maxBettingMoney = aliveUsers[i].getMoney();
             aliveUsers[i].betMoney(this.baseMoney);
             bettingInThisSet[i] = this.baseMoney;
@@ -92,15 +103,18 @@ public class BettingSystem {
             case 2: // 콜
                 if(bettingInThisSet[userNumber] < this.moneyPerPerson){
                     user.betMoney(this.moneyPerPerson - bettingInThisSet[userNumber]);
+                    moneyInThisSet += (this.moneyPerPerson - bettingInThisSet[userNumber]);
                     bettingInThisSet[userNumber] += this.moneyPerPerson - bettingInThisSet[userNumber];
                     System.out.println(bettingInThisSet[userNumber]+"만원 만큼 배팅하셨습니다.");
                 }
                 break;
             case 3: // 올인
                 System.out.println("올인을 선택하셨습니다. 모든 사람이 최대로 배팅합니다.");
-                user.betMoney(this.maxBettingMoney - bettingInThisSet[userNumber]);
+                int allinBetting = this.maxBettingMoney - bettingInThisSet[userNumber];
+                user.betMoney(allinBetting);
                 this.moneyPerPerson = this.maxBettingMoney;
-                this.moneyInThisSet += this.maxBettingMoney - bettingInThisSet[userNumber];
+                bettingInThisSet[userNumber] += allinBetting;
+                this.moneyInThisSet += allinBetting;
                 allinFlag = true;
                 break;
             case 4: // 다이
@@ -114,14 +128,10 @@ public class BettingSystem {
                 user.cardOne.printCard();
                 user.cardTwo.printCard();
                 System.out.println("\n조합은 게임이 끝나면 알 수 있습니다.\n");
-//                System.out.print(user.getName()+"님의 패는 <");
-//                System.out.print(user.rank.checkPare());;
-//                System.out.print("> 입니다.\n");
 
                 bettingOption(user,userNumber,0);
                 return;
-                // break; 를 사용했더니 끝나고 여기로 다시 돌아와서
-                // 아래 print가 여러분 출력된다.
+
             default:
                 System.out.println("잘못 입력하셨습니다. 다시 입력해주세요");
                 bettingOption(user,userNumber,0);
@@ -163,6 +173,7 @@ public class BettingSystem {
                 break;
             }
         }
+        allinFlag = false;
         return result;
     }
 

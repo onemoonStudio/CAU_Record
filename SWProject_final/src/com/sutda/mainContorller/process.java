@@ -1,3 +1,15 @@
+/*
+메인 프로세스 입니다.
+해당 클래스에서 전체적인 흐름이 진행되고 , 조합됩니다.
+while 을 통해서 한명의 유저가 남을 때 까지 진행됩니다.
+
+users : 처음 게임에 참여한 사람들
+aliveUser : 게임이 진행되면서 살아있는 사람들을 가려냅니다.
+allinGame : 올인게임인지 아닌지 체크하는 값 입니다.
+deck : 카드 더미 입니다.
+
+ */
+
 package com.sutda.mainContorller;
 
 import com.sutda.card.Deck;
@@ -13,7 +25,6 @@ import static com.sutda.money.BettingSystem.bettingInThisSet;
 public class process {
     public static void main(String[] args) throws Exception{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        boolean endgame = false;
         boolean allinGame = false;
 
         User users[];
@@ -28,7 +39,6 @@ public class process {
         aliveUser = checkAliveUser(users);
 
         while(aliveUser.length != 1){
-
             deck  = new Deck();
 
             System.out.println("현재 게임에 참여한 사람은 "+aliveUser.length+"명 입니다.");
@@ -103,6 +113,7 @@ public class process {
 
             // 게임이 끝난 뒤 설정
             betting.afterEndGame(aliveUser);
+            aliveUser = null;
             aliveUser = checkAliveUser(users);
 
 
@@ -123,7 +134,6 @@ public class process {
         Thread.sleep(500);
         System.out.println("우승자는 "+aliveUser[0].getName()+"님 입니다. 축하드립니다.");
         Thread.sleep(3000);
-
 
     }
 
