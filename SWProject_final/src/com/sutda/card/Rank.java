@@ -16,11 +16,6 @@ public class Rank {
         this.propertyTwo = two.getProperty();
     }
 
-    // 땡잡이 , 구사 , 멍텅구리 구사 , 암행어사
-//    public String checkSpecial(){
-//
-//    }
-
     public String checkPare(){
         if
                 ( this.propertyOne == 2 && this.propertyTwo ==2

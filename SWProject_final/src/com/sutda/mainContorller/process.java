@@ -1,14 +1,11 @@
 package com.sutda.mainContorller;
 
-import com.sutda.card.Card;
-import com.sutda.card.CardSet;
+import com.sutda.card.Deck;
 import com.sutda.money.BettingSystem;
 import com.sutda.user.User;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 
 import static com.sutda.money.BettingSystem.allinFlag;
 import static com.sutda.money.BettingSystem.bettingInThisSet;
@@ -21,7 +18,7 @@ public class process {
 
         User users[];
         User aliveUser[];
-        CardSet deck = null;
+        Deck deck = null;
 
 
         Start st = new Start();
@@ -32,7 +29,7 @@ public class process {
 
         while(aliveUser.length != 1){
 
-            deck  = new CardSet();
+            deck  = new Deck();
 
             System.out.println("현재 게임에 참여한 사람은 "+aliveUser.length+"명 입니다.");
             System.out.println(" 패를 분배합니다. \n");

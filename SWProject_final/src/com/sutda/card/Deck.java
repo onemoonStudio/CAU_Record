@@ -1,15 +1,22 @@
+/*
+ * 게임에 사용되는 패를 모아놓은 클래스 입니다.
+ * 20장의 패를 Random 유틸을 통해서 무작위로 섞은 패가
+ * 매 게임마다 새로 생성되어 만들어 집니다.
+ * 또한 조금 더 제어가 쉽게 하기 위해서 Array 아 아닌 ArrayList 를 사용했습니다.
+ */
+
 package com.sutda.card;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 
-public class CardSet {
+public class Deck {
 
     private ArrayList<Card> deck;
     private int ranNum[];
 
-    public CardSet() {
+    public Deck() {
         deck = new ArrayList<>();
         this.createRand();
         for(int i=0;i<20;i++){
