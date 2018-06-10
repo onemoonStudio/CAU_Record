@@ -54,6 +54,8 @@ BOOL _InitDirectSound( void )
     return FALSE;
 }
 
+
+// Sound 배열에 담긴 sound 들을 좀 더 편리하게 재생할 수 있도록 만든 함수
 void _Play( int num )
 {
     SndObjPlay( Sound[num], NULL );
@@ -65,7 +67,7 @@ void _Play( int num )
 BOOL Fail( HWND hwnd )
 {
     ShowWindow( hwnd, SW_HIDE );
-    MessageBox( hwnd, "DIRECT X �ʱ�ȭ�� �����߽��ϴ�.", "���� ������", MB_OK );
+    MessageBox( hwnd, "DIRECT X ÃÊ±âÈ­¿¡ ½ÇÆÐÇß½À´Ï´Ù.", "°ÔÀÓ µðÀÚÀÎ", MB_OK );
     DestroyWindow( hwnd );
     return FALSE;
 }
@@ -106,9 +108,15 @@ long FAR PASCAL WindowProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
                                     MouseY = HIWORD(lParam);
                                     break;
 */
+    	// left right 버튼을 누르면 사용되는 것 
 		case	WM_LBUTTONDOWN	: 	Click=1;
 									_Play( 3 );
 									break;
+		case	WM_LBUTTONDOWN	: 	Click=1;
+									_Play( 3 );
+									break;
+
+		// 키를 컨트롤 하는 부분
         case	WM_KEYDOWN:            
             switch (wParam)
             {
@@ -192,7 +200,7 @@ BOOL _GameMode( HINSTANCE hInstance, int nCmdShow, int x, int y, int bpp )
     if ( result != DD_OK ) return Fail( MainHwnd );
 
 
-	// ������ �ڵ��� ���� �ܰ踦 �����Ѵ�.
+	// À©µµ¿ì ÇÚµéÀÇ Çù·Â ´Ü°è¸¦ ¼³Á¤ÇÑ´Ù.
 	if(gFullScreen){
 	    result = DirectOBJ->SetCooperativeLevel( MainHwnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN );
 		if ( result != DD_OK ) return Fail( MainHwnd );
@@ -257,7 +265,7 @@ extern void CommInit(int argc, char **argv);
 extern void CommSend(char *sending);
 extern void CommRecv(char *recvData);
 
-
+// Timer 로 인해서 30초마다 실행되는 곳 
 void CALLBACK _GameProc(HWND hWnd, UINT message, UINT wParam, DWORD lParam)
 {
     RECT BackRect = { 0, 0, 640, 480 };
@@ -290,7 +298,7 @@ void CALLBACK _GameProc(HWND hWnd, UINT message, UINT wParam, DWORD lParam)
 
     BackScreen -> BltFast( MouseX - 50, MouseY - 35, SpriteImage, &SpriteRect, DDBLTFAST_WAIT | DDBLTFAST_SRCCOLORKEY );
 
-	// ĳ������ x y �� �����ش�. type 1
+	// Ä³¸¯ÅÍÀÇ x y ¸¦ º¸³»ÁØ´Ù. type 1
 	sprintf(sendData, "%d %d %d %d %d %d %d %d %d"
 		, 1
 		, SpriteRect.left, SpriteRect.top, SpriteRect.right, SpriteRect.bottom
@@ -340,7 +348,7 @@ void CALLBACK _GameProc(HWND hWnd, UINT message, UINT wParam, DWORD lParam)
 
 		BackScreen->Blt(&dstRect, Gunship, &SpriteRect, DDBLT_WAIT | DDBLT_KEYSRC, NULL);
 
-		// ���⼭�� ���� Ư������ �����ش�.
+		// ¿©±â¼­´Â µ¹ÀÇ Æ¯¼ºµéÀ» º¸³»ÁØ´Ù.
 		sprintf(sendData, "%d %d %d %d %d %d %d %d %d"
 			, 2
 			, SpriteRect.left, SpriteRect.top
@@ -373,13 +381,14 @@ void CALLBACK _GameProc(HWND hWnd, UINT message, UINT wParam, DWORD lParam)
 
 
 
-
+// 메인 프로세스 부분 여기가 핵심이다.
 int PASCAL WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
 {
     MSG msg;
 
     if ( !_GameMode(hInstance, nCmdShow, gWidth, gHeight, 32) ) return FALSE;
 
+    // 비트맵 설정 하는 곳 
     SpriteImage = DDLoadBitmap( DirectOBJ, "EXAM3_1.BMP", 0, 0 );
     BackGround  = DDLoadBitmap( DirectOBJ, "EXAM3_2.BMP", 0, 0 );
     Gunship  = DDLoadBitmap( DirectOBJ, "EXAM3_3.BMP", 0, 0 );
@@ -387,12 +396,14 @@ int PASCAL WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
     DDSetColorKey( SpriteImage, RGB(0,0,0) );
     DDSetColorKey( Gunship, RGB(0,0,0) );
 
+    // 이를 통해서 _GameProc 함수가 30ms 마다 실행된다.
 	SetTimer(MainHwnd, 1, 30, _GameProc);
 
 	CommInit(NULL, NULL);
 
 ///////////////////
 
+	// sound 배열 설정
     if ( _InitDirectSound() )
     {
         Sound[0] = SndObjCreate(SoundOBJ,"MUSIC.WAV",1);

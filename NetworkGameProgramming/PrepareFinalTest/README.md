@@ -8,6 +8,11 @@
 #### resource folder
 - 관련된 cpp 파일
 
+#### debug 파일
+
+debug 폴더에 여러 파일들을 넣어줘야 한다.
+BMP sound 등등...
+
 ## properties 
 
 1. SDL check -> No
