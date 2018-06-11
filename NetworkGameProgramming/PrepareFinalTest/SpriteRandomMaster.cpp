@@ -200,7 +200,7 @@ BOOL _GameMode( HINSTANCE hInstance, int nCmdShow, int x, int y, int bpp )
     if ( result != DD_OK ) return Fail( MainHwnd );
 
 
-	// À©µµ¿ì ÇÚµéÀÇ Çù·Â ´Ü°è¸¦ ¼³Á¤ÇÑ´Ù.
+	
 	if(gFullScreen){
 	    result = DirectOBJ->SetCooperativeLevel( MainHwnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN );
 		if ( result != DD_OK ) return Fail( MainHwnd );
@@ -298,7 +298,7 @@ void CALLBACK _GameProc(HWND hWnd, UINT message, UINT wParam, DWORD lParam)
 
     BackScreen -> BltFast( MouseX - 50, MouseY - 35, SpriteImage, &SpriteRect, DDBLTFAST_WAIT | DDBLTFAST_SRCCOLORKEY );
 
-	// Ä³¸¯ÅÍÀÇ x y ¸¦ º¸³»ÁØ´Ù. type 1
+	// 캐릭터의 x y 를 보내준다. type 1
 	sprintf(sendData, "%d %d %d %d %d %d %d %d %d"
 		, 1
 		, SpriteRect.left, SpriteRect.top, SpriteRect.right, SpriteRect.bottom
@@ -348,7 +348,7 @@ void CALLBACK _GameProc(HWND hWnd, UINT message, UINT wParam, DWORD lParam)
 
 		BackScreen->Blt(&dstRect, Gunship, &SpriteRect, DDBLT_WAIT | DDBLT_KEYSRC, NULL);
 
-		// ¿©±â¼­´Â µ¹ÀÇ Æ¯¼ºµéÀ» º¸³»ÁØ´Ù.
+		// 여기서는 돌의 특성들을 보내준다.
 		sprintf(sendData, "%d %d %d %d %d %d %d %d %d"
 			, 2
 			, SpriteRect.left, SpriteRect.top
