@@ -35,6 +35,10 @@ public class Card {
         this.property = property;
     }
 
+    /*
+    동일한 월에 2개의 특징을 가진 패가 있으므로
+    이를 가리기 위해서 함수를 만들었습니다.
+     */
     public String checkProperty(){
         if(this.property == 1 ) return "일반 패 ";
         else
@@ -65,6 +69,7 @@ public class Card {
 
 
     }
+    // 패를 쉽게 확인하기 위해서 만든 함수입니다.
     public void printCard(){
         System.out.println(this.month + " 月 ( "+this.checkProperty()+")");
     }

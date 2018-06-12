@@ -15,6 +15,9 @@ public class Start {
     Scanner sc = new Scanner(System.in);
     boolean started;
 
+    /*
+    시작하는 함수입니다.
+     */
     public Start() {
         this.started = false;
 
@@ -33,6 +36,9 @@ public class Start {
 
     }
 
+    /*
+    시작하면서 준비의 여부를 묻습니다.
+     */
     public void startGame(){
         while(!this.started){
             String checkStart = sc.nextLine();
@@ -47,7 +53,9 @@ public class Start {
             }
         }
     }
-
+    /*
+    기본 가이드를 해줍니다.
+     */
     public void guide(){
         System.out.print("\n 이렇게 게임이 진행됩니다. \n");
         System.out.print(" 1. 게임에 참여할 인원의 수를 정해주세요 \n");
@@ -58,6 +66,10 @@ public class Start {
 
     }
 
+    /*
+    입력받은 정보를 통해서 유저를 설정합니다.
+    참여 유저 수, 유저 이름을 설정합니다.
+     */
     public User[] initUser(){
         Scanner sc = new Scanner(System.in);
         System.out.println("몇명이나 참여하나요 ?");

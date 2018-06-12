@@ -30,13 +30,12 @@ public class User {
 
     public Rank rank;
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public void setHowmanyCard(int howmanyCard) {
@@ -73,6 +72,10 @@ public class User {
         this.money = money;
     }
 
+    /*
+    유저가 패를 받을 때 확인시키기 위해서 만든 함수입니다.
+    기본 getter + print 를 통해서 명시적으로 확인할 수 있게끔 만들었습니다.
+     */
     public void getCard(Card thisCard){
         if(howmanyCard == 0) {
             this.setCardOne(thisCard);
@@ -89,7 +92,11 @@ public class User {
     }
 
 
-
+    /*
+    유저가 베팅하는 경우 실행되는 함수입니다.
+    베팅머니가 부족한 경우 베팅할 수 없습니다.
+    베팅머니가 충분한 경우 베팅한 만큼 자신의 돈이 줄어듭니다.
+     */
     public boolean betMoney(int betting){
         if(this.money < betting){
             System.out.println("돈이 부족해서 배팅할 수 없습니다.");

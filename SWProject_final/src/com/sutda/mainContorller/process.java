@@ -137,6 +137,10 @@ public class process {
 
     }
 
+    /*
+    게임이 끝난 후 살아남았는지 체크하는 함수입니다.
+    이를 통해서 다음 게임에 살아남은 유저들만 게임에 참여할 수 있습니다.
+     */
     public static User[] checkAliveUser(User[] users){
 
         int userNum = 0;

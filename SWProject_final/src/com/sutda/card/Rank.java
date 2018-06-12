@@ -23,6 +23,7 @@ public class Rank {
         this.propertyTwo = two.getProperty();
     }
 
+    // 2개의 패 조합으로 rank를 매깁니다.
     public String checkPare(){
         if
                 ( this.propertyOne == 2 && this.propertyTwo ==2

@@ -20,6 +20,7 @@ public class Deck {
     private ArrayList<Card> deck;
     private int ranNum[];
 
+    // 만들어진 어레이 중심으로 좀더 효율적으로 관리하기 위해서 ArrayList 를 만드는 함수입니다.
     public Deck() {
         deck = new ArrayList<>();
         this.createRand();
@@ -31,6 +32,7 @@ public class Deck {
 
     }
 
+    // 1부터 20까지의 수를 섞은 array 를 설정합니다.
     public void createRand(){
 
         Random rand = new Random();
@@ -52,6 +54,7 @@ public class Deck {
 
     }
 
+    // 패를 가져오는 경우 덱에서 패를 하나 지웁니다.
     public Card draw(){
         Card d_card = deck.get(0);
         deck.remove(0);
