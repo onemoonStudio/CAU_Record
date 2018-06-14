@@ -3,8 +3,10 @@ package lecture.ch10;
 public class A extends B{
     public static void main(String[] args) {
         A test = new A();
-        System.out.println(test.toString());
+//        System.out.println(test.toString());
         // A < B < C
+
+        test.otest();
 
     }
 
@@ -19,6 +21,11 @@ public class A extends B{
     public void wow(){
         System.out.println("hello world ! !");
     }
+
+//    @Override
+//    public void otest(){
+//        System.out.println("a test");
+//    }
 
     @Override
     public String toString() {
