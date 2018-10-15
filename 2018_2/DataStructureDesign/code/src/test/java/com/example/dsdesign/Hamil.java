@@ -45,6 +45,7 @@ public class Hamil {
         if(promising(idx_i,w,path))
             if(idx_i == n-1){
                 for(int num : path) System.out.print(num +" ");
+                System.out.print("0");
                 System.out.println();
             }
 
