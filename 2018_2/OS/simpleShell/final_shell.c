@@ -34,16 +34,17 @@ int main(){
 			cmdToArr(inputStr,totalLineArr);
 			execvp(totalLineArr[0], totalLineArr);
 		} else{
-			wait(NULL);
+			int stat_val;
+			pid_t child_pid;
+			child_pid = wait(&stat_val);
 		}
-
 
 
 	}
 }
 
 void prompt(){
-	printf("\033[1;34mHyeontae Kim\033[1;37m $ ");	
+	printf("Hyeontae Kim $ ");	
 }
 void cmdToArr(char inputStr[],char *totalLine[]){
 	// memcpy(&totalLine,&inputStr,sizeof(inputStr));
